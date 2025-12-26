@@ -16,15 +16,6 @@ Features:
 - Monte Carlo simulations
 - Professional visualizations
 - Downloadable results
-
-To run locally:
-    streamlit run app.py
-
-To deploy to Streamlit Cloud:
-    1. Push to GitHub
-    2. Go to share.streamlit.io
-    3. Select repository
-    4. Deploy
 ================================================================================
 """
 
@@ -100,16 +91,26 @@ st.markdown("""
         font-size: 1.3em;
         font-weight: bold;
         margin-top: 10px;
+        margin-bottom: 5px;
     }
     .profile-title {
         color: #666666;
         font-size: 0.95em;
-        margin: 5px 0;
+        margin: 5px 0 20px 0;
+        font-weight: 600;
     }
     .profile-info {
         font-size: 0.85em;
         color: #555555;
         margin: 5px 0;
+    }
+    .profile-box {
+        background: #ffffff;
+        border-radius: 5px;
+        border-left: 3px solid #003366;
+        padding: 12px;
+        margin: 15px 0px;
+        text-align: left;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -240,40 +241,40 @@ class MonteCarloGDPSimulation:
 
 def main():
     # ========================================================================
-    # SIDEBAR PROFILE SECTION (NO PHOTO - TEXT ONLY)
+    # SIDEBAR PROFILE SECTION (IMPROVED SPACING)
     # ========================================================================
     with st.sidebar:
         st.markdown("---")
         
-        # Profile information (NO PHOTO)
+        # Profile information with improved styling
         st.markdown("""
         <div class='profile-section'>
             <div class='profile-name'>👤 Prof. V. Ravichandran</div>
             <div class='profile-title'><strong>The Mountain Path - World of Finance</strong></div>
             
-            <div style='margin: 15px 0; text-align: left;'>
-                <div class='profile-info'><strong>📊 Expertise:</strong></div>
-                <div class='profile-info' style='font-size: 0.8em;'>
+            <div class='profile-box'>
+                <div class='profile-info' style='margin-bottom: 8px;'><strong>📊 Expertise</strong></div>
+                <div class='profile-info' style='font-size: 0.8em; margin-left: 10px; line-height: 1.6;'>
                     • Financial Risk Management<br>
                     • Quantitative Finance<br>
                     • Economic Forecasting
                 </div>
             </div>
             
-            <div style='margin: 15px 0; text-align: left;'>
-                <div class='profile-info'><strong>📈 Background:</strong></div>
-                <div class='profile-info' style='font-size: 0.8em;'>
+            <div class='profile-box'>
+                <div class='profile-info' style='margin-bottom: 8px;'><strong>📈 Background</strong></div>
+                <div class='profile-info' style='font-size: 0.8em; margin-left: 10px; line-height: 1.6;'>
                     • 28+ Years Corporate Finance & Banking<br>
                     • 10+ Years Academic Excellence<br>
                     • MBA/CFA Educator
                 </div>
             </div>
             
-            <div style='margin: 15px 0;'>
-                <div class='profile-info'><strong>📧 Contact:</strong></div>
-                <div class='profile-info' style='font-size: 0.8em;'>
-                    <a href='mailto:your.email@example.com' target='_blank'>Email</a> | 
-                    <a href='https://linkedin.com/in/yourprofile' target='_blank'>LinkedIn</a>
+            <div class='profile-box'>
+                <div class='profile-info' style='margin-bottom: 8px;'><strong>📧 Contact</strong></div>
+                <div class='profile-info' style='font-size: 0.8em; margin-left: 10px; line-height: 1.6;'>
+                    <a href='mailto:your.email@example.com' target='_blank' style='color: #003366; text-decoration: none; font-weight: bold;'>📧 Email</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href='https://linkedin.com/in/yourprofile' target='_blank' style='color: #003366; text-decoration: none; font-weight: bold;'>💼 LinkedIn</a>
                 </div>
             </div>
         </div>
@@ -348,37 +349,17 @@ def main():
     })
     
     # ========================================================================
-    # PAGE: DASHBOARD
+    # PAGE ROUTING
     # ========================================================================
     
     if page == "🏠 Dashboard":
         show_dashboard(sectoral_model)
-    
-    # ========================================================================
-    # PAGE: SCENARIO BUILDER
-    # ========================================================================
-    
     elif page == "⚙️ Scenario Builder":
         show_scenario_builder(sectoral_model)
-    
-    # ========================================================================
-    # PAGE: SENSITIVITY ANALYSIS
-    # ========================================================================
-    
     elif page == "📈 Sensitivity Analysis":
         show_sensitivity_analysis()
-    
-    # ========================================================================
-    # PAGE: INSTITUTIONAL COMPARISON
-    # ========================================================================
-    
     elif page == "📊 Institutional Comparison":
         show_institutional_comparison()
-    
-    # ========================================================================
-    # PAGE: DOWNLOAD RESULTS
-    # ========================================================================
-    
     elif page == "📥 Download Results":
         show_download_page()
 
@@ -557,26 +538,26 @@ def show_dashboard(sectoral_model):
     
     # Histogram
     axes[0].hist(mc_sim.simulations, bins=60, density=True, alpha=0.7,
-                 color=DARKBLUE, edgecolor='black', linewidth=0.5)
+                 color='#003366', edgecolor='black', linewidth=0.5)
     
     mu, sigma = stats_dict['mean'], stats_dict['std']
     x = np.linspace(mu - 4*sigma, mu + 4*sigma, 100)
     axes[0].plot(x, stats.norm.pdf(x, mu, sigma), 'r-', linewidth=2.5, label='Normal Fit')
-    axes[0].axvline(mu, color=DARKBLUE, linestyle='--', linewidth=2, label=f'Mean: {mu:.2f}%')
+    axes[0].axvline(mu, color='#003366', linestyle='--', linewidth=2, label=f'Mean: {mu:.2f}%')
     axes[0].set_xlabel('GDP Growth Rate (%)', fontsize=11, fontweight='bold')
     axes[0].set_ylabel('Probability Density', fontsize=11, fontweight='bold')
-    axes[0].set_title('GDP Growth Distribution', fontsize=12, fontweight='bold', color=DARKBLUE)
+    axes[0].set_title('GDP Growth Distribution', fontsize=12, fontweight='bold', color='#003366')
     axes[0].legend()
     axes[0].grid(alpha=0.3)
     
     # CDF
     sorted_sims = np.sort(mc_sim.simulations)
     cumulative_prob = np.arange(1, len(sorted_sims) + 1) / len(sorted_sims)
-    axes[1].plot(sorted_sims, cumulative_prob * 100, linewidth=2.5, color=DARKBLUE)
-    axes[1].fill_between(sorted_sims, 0, cumulative_prob * 100, alpha=0.2, color=DARKBLUE)
+    axes[1].plot(sorted_sims, cumulative_prob * 100, linewidth=2.5, color='#003366')
+    axes[1].fill_between(sorted_sims, 0, cumulative_prob * 100, alpha=0.2, color='#003366')
     axes[1].set_xlabel('GDP Growth Rate (%)', fontsize=11, fontweight='bold')
     axes[1].set_ylabel('Cumulative Probability (%)', fontsize=11, fontweight='bold')
-    axes[1].set_title('Cumulative Distribution Function', fontsize=12, fontweight='bold', color=DARKBLUE)
+    axes[1].set_title('Cumulative Distribution Function', fontsize=12, fontweight='bold', color='#003366')
     axes[1].grid(alpha=0.3)
     axes[1].set_ylim([0, 100])
     
@@ -710,10 +691,10 @@ def show_scenario_builder(sectoral_model):
             'Monsoon_Deviation': monsoon_dev,
             'Food_Inflation': inflation_change,
             'Capex_Growth_Change': capex_change,
-            'Tariff_Impact': tariff_impact / 100,  # Convert to decimal
+            'Tariff_Impact': tariff_impact / 100,
             'Global_Growth': global_growth,
             'Consumption_Growth': consumption_growth,
-            'Interest_Rate_Change': rate_change / 100,  # Convert to decimal
+            'Interest_Rate_Change': rate_change / 100,
             'Export_Growth': export_growth
         }
         
@@ -749,9 +730,9 @@ def show_scenario_builder(sectoral_model):
         })
         
         fig, ax = plt.subplots(figsize=(10, 5))
-        ax.bar(sector_data['Sector'], sector_data['Growth'], color=[DARKBLUE, LIGHTBLUE, GOLDCOLOR])
+        ax.bar(sector_data['Sector'], sector_data['Growth'], color=['#003366', '#ADD8E6', '#FFD700'])
         ax.set_ylabel('Growth Rate (%)', fontweight='bold')
-        ax.set_title('Sectoral Growth Breakdown', fontweight='bold', color=DARKBLUE, fontsize=14)
+        ax.set_title('Sectoral Growth Breakdown', fontweight='bold', color='#003366', fontsize=14)
         ax.grid(axis='y', alpha=0.3)
         
         for i, v in enumerate(sector_data['Growth']):
@@ -773,44 +754,18 @@ def show_sensitivity_analysis():
     
     st.subheader("📈 Sensitivity Analysis")
     
-    st.markdown("""
-    Understand how different variables impact GDP growth.
-    The elasticities show the percentage point change in GDP for each variable shock.
-    """)
+    st.markdown("Understand how different variables impact GDP growth.")
     
-    # Base case values
     base_growth = 6.56
     
-    # Sensitivity data
     sensitivities = {
-        'Oil Prices (USD/bbl)': {
-            'elasticity': -0.10,
-            'range': (-15, 15),
-            'description': 'Every $1/bbl change'
-        },
-        'Monsoon Index (% deviation)': {
-            'elasticity': 0.20,
-            'range': (-10, 10),
-            'description': '10% deviation from normal'
-        },
-        'Capex Growth (%)': {
-            'elasticity': 0.08,
-            'range': (-20, 20),
-            'description': 'Government capex growth change'
-        },
-        'Global Growth (%)': {
-            'elasticity': 0.50,
-            'range': (-2, 2),
-            'description': 'Global GDP growth change'
-        },
-        'US Tariff Impact (%)': {
-            'elasticity': -0.50,
-            'range': (-25, 0),
-            'description': 'Export competitiveness impact'
-        }
+        'Oil Prices (USD/bbl)': {'elasticity': -0.10, 'range': (-15, 15), 'description': 'Every $1/bbl change'},
+        'Monsoon Index (% deviation)': {'elasticity': 0.20, 'range': (-10, 10), 'description': '10% deviation'},
+        'Capex Growth (%)': {'elasticity': 0.08, 'range': (-20, 20), 'description': 'Capex growth change'},
+        'Global Growth (%)': {'elasticity': 0.50, 'range': (-2, 2), 'description': 'Global GDP change'},
+        'US Tariff Impact (%)': {'elasticity': -0.50, 'range': (-25, 0), 'description': 'Export competitiveness'}
     }
     
-    # Create sensitivity table
     st.subheader("Sensitivity Coefficients")
     
     sensitivity_df = pd.DataFrame({
@@ -832,8 +787,8 @@ def show_sensitivity_analysis():
     for var_name in variables:
         data = sensitivities[var_name]
         min_shock, max_shock = data['range']
-        min_impact = base_growth + (data['elasticity'] * min_shock) - base_growth
-        max_impact = base_growth + (data['elasticity'] * max_shock) - base_growth
+        min_impact = (data['elasticity'] * min_shock)
+        max_impact = (data['elasticity'] * max_shock)
         impacts.append((min_impact, max_impact))
     
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -853,19 +808,16 @@ def show_sensitivity_analysis():
     ax.set_yticklabels(variables, fontsize=10)
     ax.set_xlabel('GDP Growth Impact (Percentage Points)', fontsize=11, fontweight='bold')
     ax.set_title(f'GDP Growth Sensitivity - Tornado Chart (Base: {base_growth:.2f}%)',
-                fontsize=12, fontweight='bold', color=DARKBLUE)
+                fontsize=12, fontweight='bold', color='#003366')
     ax.grid(axis='x', alpha=0.3)
     
     st.pyplot(fig)
     
-    # Interactive sensitivity calculator
+    # Interactive calculator
     st.markdown("---")
     st.subheader("🔧 Interactive Sensitivity Calculator")
     
-    selected_var = st.selectbox(
-        "Select variable to analyze",
-        list(sensitivities.keys())
-    )
+    selected_var = st.selectbox("Select variable to analyze", list(sensitivities.keys()))
     
     var_data = sensitivities[selected_var]
     min_shock, max_shock = var_data['range']
@@ -900,30 +852,17 @@ def show_institutional_comparison():
     
     st.subheader("📊 Institutional Forecasts Comparison")
     
-    st.markdown("""
-    How does our model compare with major institutional forecasters?
-    """)
-    
     institutions_data = {
-        'Institution': [
-            'Our Model (Base)',
-            'Probability-Weighted',
-            'RBI (FY25-26)',
-            'IMF (Calendar 2026)',
-            'ADB (Calendar 2026)',
-            'Crisil (FY25-26)',
-            'World Bank (2026)'
-        ],
+        'Institution': ['Our Model (Base)', 'Probability-Weighted', 'RBI (FY25-26)', 'IMF (2026)', 
+                       'ADB (2026)', 'Crisil (FY25-26)', 'World Bank (2026)'],
         'Forecast (%)': [6.56, 6.65, 7.30, 6.40, 6.70, 7.00, 6.50],
         'Type': ['Our Model', 'Our Model', 'Institution', 'Institution', 'Institution', 'Institution', 'Institution']
     }
     
     forecast_df = pd.DataFrame(institutions_data)
     
-    # Display table
     st.dataframe(forecast_df, use_container_width=True)
     
-    # Statistics
     our_base = forecast_df[forecast_df['Institution'] == 'Our Model (Base)']['Forecast (%)'].values[0]
     institutional_avg = forecast_df[forecast_df['Type'] == 'Institution']['Forecast (%)'].mean()
     difference = our_base - institutional_avg
@@ -932,69 +871,30 @@ def show_institutional_comparison():
     
     with col1:
         st.metric("Our Base Case", f"{our_base:.2f}%")
-    
     with col2:
         st.metric("Institutional Average", f"{institutional_avg:.2f}%")
-    
     with col3:
-        st.metric("Difference", f"{difference:+.2f}%", delta=f"{difference*100:+.0f} bps")
+        st.metric("Difference", f"{difference:+.2f}%")
     
     st.markdown("---")
     
     # Comparison chart
     fig, ax = plt.subplots(figsize=(12, 6))
     
-    colors = [DARKBLUE if x == 'Our Model' else '#666666' for x in forecast_df['Type']]
-    bars = ax.barh(forecast_df['Institution'], forecast_df['Forecast (%)'], color=colors, alpha=0.8)
+    colors = ['#003366' if x == 'Our Model' else '#666666' for x in forecast_df['Type']]
+    ax.barh(forecast_df['Institution'], forecast_df['Forecast (%)'], color=colors, alpha=0.8)
     
-    # Add value labels
     for i, (idx, row) in enumerate(forecast_df.iterrows()):
         ax.text(row['Forecast (%)'] + 0.1, i, f"{row['Forecast (%)']:.1f}%",
                 va='center', fontweight='bold')
     
     ax.set_xlabel('GDP Growth Rate (%)', fontsize=11, fontweight='bold')
     ax.set_title('2026 GDP Growth Forecast Comparison',
-                fontsize=12, fontweight='bold', color=DARKBLUE)
+                fontsize=12, fontweight='bold', color='#003366')
     ax.set_xlim([6.0, 7.5])
     ax.grid(axis='x', alpha=0.3)
     
     st.pyplot(fig)
-    
-    # Key insights
-    st.subheader("🔍 Key Insights")
-    
-    min_forecast = forecast_df['Forecast (%)'].min()
-    max_forecast = forecast_df['Forecast (%)'].max()
-    median_forecast = forecast_df[forecast_df['Type'] == 'Institution']['Forecast (%)'].median()
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown(f"""
-        <div class='metric-box'>
-            <strong>Range</strong><br>
-            <span style='font-size: 1.5em;'>{min_forecast:.2f}% - {max_forecast:.2f}%</span><br>
-            <small>{(max_forecast - min_forecast)*100:.0f} bps spread</small>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown(f"""
-        <div class='metric-box'>
-            <strong>Consensus (Median)</strong><br>
-            <span style='font-size: 1.5em;'>{median_forecast:.2f}%</span><br>
-            <small>Institutional median</small>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown(f"""
-        <div class='metric-box'>
-            <strong>Model Positioning</strong><br>
-            <span style='font-size: 1.5em;'>{our_base:.2f}%</span><br>
-            <small>Slightly below consensus</small>
-        </div>
-        """, unsafe_allow_html=True)
 
 
 def show_download_page():
@@ -1003,13 +903,10 @@ def show_download_page():
     st.subheader("📥 Download Your Results")
     
     if not st.session_state.forecast_data:
-        st.warning("⚠️ No custom scenario calculated yet. Go to 'Scenario Builder' to create one first.")
+        st.warning("⚠️ No custom scenario calculated yet. Go to 'Scenario Builder' first.")
         return
     
     st.success("✅ Custom scenario data available for download!")
-    
-    # Display current forecast
-    st.subheader("Current Scenario")
     
     data = st.session_state.forecast_data
     
@@ -1017,16 +914,13 @@ def show_download_page():
     
     with col1:
         st.metric("GDP Growth", f"{data['gdp']:.2f}%")
-    
     with col2:
         st.metric("Generated", data['timestamp'])
-    
     with col3:
         st.metric("Format", "Excel & CSV")
     
     st.markdown("---")
     
-    # Create downloadable data
     # Summary data
     summary_data = {
         'Metric': ['GDP Growth', 'Agriculture', 'Manufacturing', 'Services'],
@@ -1040,7 +934,6 @@ def show_download_page():
     
     summary_df = pd.DataFrame(summary_data)
     
-    # Variables data
     variables_data = {
         'Variable': list(data['variables'].keys()),
         'Shock': list(data['variables'].values())
@@ -1080,60 +973,14 @@ def show_download_page():
         )
     
     st.markdown("---")
-    
-    # Show data preview
     st.subheader("📋 Data Preview")
     
     tab1, tab2 = st.tabs(["Summary", "Variables"])
     
     with tab1:
         st.dataframe(summary_df, use_container_width=True)
-    
     with tab2:
         st.dataframe(variables_df, use_container_width=True)
-    
-    st.markdown("---")
-    
-    # About section
-    st.subheader("ℹ️ About This App")
-    
-    st.markdown("""
-    **India GDP Projection 2026 - Interactive Dashboard**
-    
-    This Streamlit app provides interactive financial modeling for India's 2026 GDP forecast.
-    
-    **Features:**
-    - Base case scenario analysis (6.56% GDP growth)
-    - Custom scenario builder
-    - Sensitivity analysis
-    - Monte Carlo simulations (10,000 runs)
-    - Institutional forecast comparison
-    - Downloadable results (Excel & CSV)
-    
-    **Base Case Assumptions:**
-    - Oil Price: $62.50/bbl
-    - Monsoon: 97% of normal
-    - Inflation: 2.5%
-    - Government Capex: 35% YoY growth
-    - Tariff Impact: -10 bps
-    
-    **Model Methodology:**
-    - Linear regression with macro indicators
-    - Sectoral decomposition (Agriculture, Manufacturing, Services)
-    - Elasticity-based forecasting
-    - Probability-weighted scenarios
-    
-    **Data Sources:**
-    - NSO (National Sample Office): Quarterly GDP data
-    - RBI: Monetary policy stance, inflation expectations
-    - Institutional Forecasts: IMF, ADB, World Bank, Crisil
-    
-    **For More Information:**
-    - The Mountain Path - World of Finance
-    - Prof. V. Ravichandran
-    - 28+ Years Corporate Finance Experience
-    - 10+ Years Academic Excellence
-    """)
 
 
 if __name__ == "__main__":
