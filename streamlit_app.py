@@ -1,3 +1,4 @@
+
 """
 ================================================================================
 INDIA GDP PROJECTION 2026 - STREAMLIT INTERACTIVE APP
@@ -86,6 +87,29 @@ st.markdown("""
     .downside {
         background: #f8d7da;
         border-left: 4px solid #dc3545;
+    }
+    .profile-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .profile-name {
+        color: #003366;
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+    .profile-title {
+        color: #666666;
+        font-size: 0.95em;
+        margin: 5px 0;
+    }
+    .profile-info {
+        font-size: 0.85em;
+        color: #555555;
+        margin: 5px 0;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -215,26 +239,75 @@ class MonteCarloGDPSimulation:
 # ============================================================================
 
 def main():
-    # ===== PROFILE SECTION =====
+    # ========================================================================
+    # SIDEBAR PROFILE SECTION
+    # ========================================================================
     with st.sidebar:
         st.markdown("---")
-        st.image("https://raw.githubusercontent.com/YOUR_USERNAME/gdp_forecast_india_2026/main/profile_photo.jpg", 
-                width=150)
+        
+        # Display profile photo
+        # IMPORTANT: Replace the URL below with your GitHub raw profile photo URL
+        # Instructions:
+        # 1. Save your photo as "profile_photo.jpg" (300x300 pixels)
+        # 2. Upload to your GitHub repo: https://github.com/YOUR_USERNAME/gdp_forecast_india_2026
+        # 3. Get the raw GitHub URL: https://raw.githubusercontent.com/YOUR_USERNAME/gdp_forecast_india_2026/main/profile_photo.jpg
+        # 4. Replace the URL below with your actual URL
+        
+        try:
+            st.image(
+                "https://raw.githubusercontent.com/YOUR_USERNAME/gdp_forecast_india_2026/main/profile_photo.jpg",
+                width=150,
+                use_column_width=False
+            )
+        except:
+            # If photo URL doesn't work, show placeholder
+            st.markdown(f"""
+            <div style='background: #e0e0e0; border-radius: 50%; width: 150px; height: 150px; 
+                        margin: 0 auto; display: flex; align-items: center; justify-content: center;
+                        color: #999; font-weight: bold;'>
+                📸 Photo
+            </div>
+            """, unsafe_allow_html=True)
+        
+        # Profile information
         st.markdown("""
-        ### Prof. V. Ravichandran
-        **The Mountain Path - World of Finance**
+        <div class='profile-section'>
+            <div class='profile-name'>👤 Prof. V. Ravichandran</div>
+            <div class='profile-title'><strong>The Mountain Path - World of Finance</strong></div>
+            
+            <div style='margin: 15px 0; text-align: left;'>
+                <div class='profile-info'><strong>📊 Expertise:</strong></div>
+                <div class='profile-info' style='font-size: 0.8em;'>
+                    • Financial Risk Management<br>
+                    • Quantitative Finance<br>
+                    • Economic Forecasting
+                </div>
+            </div>
+            
+            <div style='margin: 15px 0; text-align: left;'>
+                <div class='profile-info'><strong>📈 Background:</strong></div>
+                <div class='profile-info' style='font-size: 0.8em;'>
+                    • 28+ Years Corporate Finance & Banking<br>
+                    • 10+ Years Academic Excellence<br>
+                    • MBA/CFA Educator
+                </div>
+            </div>
+            
+            <div style='margin: 15px 0;'>
+                <div class='profile-info'><strong>📧 Contact:</strong></div>
+                <div class='profile-info' style='font-size: 0.8em;'>
+                    <a href='mailto:your.email@example.com' target='_blank'>Email</a> | 
+                    <a href='https://linkedin.com/in/yourprofile' target='_blank'>LinkedIn</a>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
         
-        📊 Financial Risk Management Expert
-        
-        📈 **28+ Years Finance** | **10+ Years Academia**
-        
-        📧 [Email](mailto:your@email.com)
-        """)
         st.markdown("---")
     
-    # REST OF APP CONTINUES BELOW
-    st.title("📊 India GDP Projection 2026")
-    # Header
+    # ========================================================================
+    # MAIN HEADER
+    # ========================================================================
     st.markdown(
         "<h1 class='main-header'>📊 India GDP Projection 2026</h1>",
         unsafe_allow_html=True
@@ -822,10 +895,11 @@ def show_sensitivity_analysis():
     min_shock, max_shock = var_data['range']
     
     shock_value = st.slider(
-    f"Shock to {selected_var}",
-    min_value=int(min_shock),
-    max_value=int(max_shock),
-    value=0
+        f"Shock to {selected_var}",
+        min_value=int(min_shock),
+        max_value=int(max_shock),
+        value=0,
+        step=1
     )
     
     impact = var_data['elasticity'] * shock_value
