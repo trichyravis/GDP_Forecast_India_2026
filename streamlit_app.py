@@ -79,38 +79,22 @@ st.markdown("""
         background: #f8d7da;
         border-left: 4px solid #dc3545;
     }
-    .profile-section {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
+    .profile-minimal {
         text-align: center;
+        padding: 15px 0;
         margin-bottom: 20px;
     }
     .profile-name {
         color: #003366;
-        font-size: 1.3em;
+        font-size: 1.2em;
         font-weight: bold;
-        margin-top: 10px;
-        margin-bottom: 5px;
+        margin: 10px 0 5px 0;
     }
-    .profile-title {
+    .profile-company {
         color: #666666;
-        font-size: 0.95em;
-        margin: 5px 0 20px 0;
+        font-size: 0.9em;
         font-weight: 600;
-    }
-    .profile-info {
-        font-size: 0.85em;
-        color: #555555;
-        margin: 5px 0;
-    }
-    .profile-box {
-        background: #ffffff;
-        border-radius: 5px;
-        border-left: 3px solid #003366;
-        padding: 12px;
-        margin: 15px 0px;
-        text-align: left;
+        margin: 0;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -241,42 +225,16 @@ class MonteCarloGDPSimulation:
 
 def main():
     # ========================================================================
-    # SIDEBAR PROFILE SECTION (IMPROVED SPACING)
+    # SIDEBAR PROFILE SECTION (MINIMAL - NAME & COMPANY ONLY)
     # ========================================================================
     with st.sidebar:
         st.markdown("---")
         
-        # Profile information with improved styling
+        # Minimal profile - just name and company
         st.markdown("""
-        <div class='profile-section'>
+        <div class='profile-minimal'>
             <div class='profile-name'>👤 Prof. V. Ravichandran</div>
-            <div class='profile-title'><strong>The Mountain Path - World of Finance</strong></div>
-            
-            <div class='profile-box'>
-                <div class='profile-info' style='margin-bottom: 8px;'><strong>📊 Expertise</strong></div>
-                <div class='profile-info' style='font-size: 0.8em; margin-left: 10px; line-height: 1.6;'>
-                    • Financial Risk Management<br>
-                    • Quantitative Finance<br>
-                    • Economic Forecasting
-                </div>
-            </div>
-            
-            <div class='profile-box'>
-                <div class='profile-info' style='margin-bottom: 8px;'><strong>📈 Background</strong></div>
-                <div class='profile-info' style='font-size: 0.8em; margin-left: 10px; line-height: 1.6;'>
-                    • 28+ Years Corporate Finance & Banking<br>
-                    • 10+ Years Academic Excellence<br>
-                    • MBA/CFA Educator
-                </div>
-            </div>
-            
-            <div class='profile-box'>
-                <div class='profile-info' style='margin-bottom: 8px;'><strong>📧 Contact</strong></div>
-                <div class='profile-info' style='font-size: 0.8em; margin-left: 10px; line-height: 1.6;'>
-                    <a href='mailto:your.email@example.com' target='_blank' style='color: #003366; text-decoration: none; font-weight: bold;'>📧 Email</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <a href='https://linkedin.com/in/yourprofile' target='_blank' style='color: #003366; text-decoration: none; font-weight: bold;'>💼 LinkedIn</a>
-                </div>
-            </div>
+            <div class='profile-company'>The Mountain Path - World of Finance</div>
         </div>
         """, unsafe_allow_html=True)
         
