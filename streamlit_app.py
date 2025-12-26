@@ -240,36 +240,12 @@ class MonteCarloGDPSimulation:
 
 def main():
     # ========================================================================
-    # SIDEBAR PROFILE SECTION
+    # SIDEBAR PROFILE SECTION (NO PHOTO - TEXT ONLY)
     # ========================================================================
     with st.sidebar:
         st.markdown("---")
         
-        # Display profile photo
-        # IMPORTANT: Replace the URL below with your GitHub raw profile photo URL
-        # Instructions:
-        # 1. Save your photo as "profile_photo.jpg" (300x300 pixels)
-        # 2. Upload to your GitHub repo: https://github.com/YOUR_USERNAME/gdp_forecast_india_2026
-        # 3. Get the raw GitHub URL: https://raw.githubusercontent.com/YOUR_USERNAME/gdp_forecast_india_2026/main/profile_photo.jpg
-        # 4. Replace the URL below with your actual URL
-        
-        try:
-            st.image(
-                "https://raw.githubusercontent.com/YOUR_USERNAME/gdp_forecast_india_2026/main/profile_photo.jpg",
-                width=150,
-                use_column_width=False
-            )
-        except:
-            # If photo URL doesn't work, show placeholder
-            st.markdown(f"""
-            <div style='background: #e0e0e0; border-radius: 50%; width: 150px; height: 150px; 
-                        margin: 0 auto; display: flex; align-items: center; justify-content: center;
-                        color: #999; font-weight: bold;'>
-                📸 Photo
-            </div>
-            """, unsafe_allow_html=True)
-        
-        # Profile information
+        # Profile information (NO PHOTO)
         st.markdown("""
         <div class='profile-section'>
             <div class='profile-name'>👤 Prof. V. Ravichandran</div>
