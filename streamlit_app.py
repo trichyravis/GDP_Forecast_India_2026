@@ -79,23 +79,6 @@ st.markdown("""
         background: #f8d7da;
         border-left: 4px solid #dc3545;
     }
-    .profile-minimal {
-        text-align: center;
-        padding: 15px 0;
-        margin-bottom: 20px;
-    }
-    .profile-name {
-        color: #003366;
-        font-size: 1.2em;
-        font-weight: bold;
-        margin: 10px 0 5px 0;
-    }
-    .profile-company {
-        color: #666666;
-        font-size: 0.9em;
-        font-weight: 600;
-        margin: 0;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -225,16 +208,16 @@ class MonteCarloGDPSimulation:
 
 def main():
     # ========================================================================
-    # SIDEBAR PROFILE SECTION (MINIMAL - NAME & COMPANY ONLY)
+    # SIDEBAR PROFILE SECTION (ONLY NAME & COMPANY)
     # ========================================================================
     with st.sidebar:
         st.markdown("---")
         
-        # Minimal profile - just name and company
+        # Only name and company - nothing else
         st.markdown("""
-        <div class='profile-minimal'>
-            <div class='profile-name'>👤 Prof. V. Ravichandran</div>
-            <div class='profile-company'>The Mountain Path - World of Finance</div>
+        <div style='text-align: center; padding: 15px 0; margin-bottom: 20px;'>
+            <div style='color: #003366; font-size: 1.2em; font-weight: bold; margin: 10px 0;'>👤 Prof. V. Ravichandran</div>
+            <div style='color: #666666; font-size: 0.9em; font-weight: 600;'>The Mountain Path - World of Finance</div>
         </div>
         """, unsafe_allow_html=True)
         
