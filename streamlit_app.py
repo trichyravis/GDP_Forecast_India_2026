@@ -802,13 +802,12 @@ def show_sensitivity_analysis():
     var_data = sensitivities[selected_var]
     min_shock, max_shock = var_data['range']
     
-    shock_value = st.slider(
-        f"Shock to {selected_var}",
-        min_value=min_shock,
-        max_value=max_shock,
-        value=0.0,
-        step=0.5
-    )
+shock_value = st.slider(
+    f"Shock to {selected_var}",
+    min_value=int(min_shock),
+    max_value=int(max_shock),
+    value=0
+)
     
     impact = var_data['elasticity'] * shock_value
     new_growth = base_growth + impact
