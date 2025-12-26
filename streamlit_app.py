@@ -215,6 +215,25 @@ class MonteCarloGDPSimulation:
 # ============================================================================
 
 def main():
+    # ===== PROFILE SECTION =====
+    with st.sidebar:
+        st.markdown("---")
+        st.image("https://raw.githubusercontent.com/YOUR_USERNAME/gdp_forecast_india_2026/main/profile_photo.jpg", 
+                width=150)
+        st.markdown("""
+        ### Prof. V. Ravichandran
+        **The Mountain Path - World of Finance**
+        
+        📊 Financial Risk Management Expert
+        
+        📈 **28+ Years Finance** | **10+ Years Academia**
+        
+        📧 [Email](mailto:your@email.com)
+        """)
+        st.markdown("---")
+    
+    # REST OF APP CONTINUES BELOW
+    st.title("📊 India GDP Projection 2026")
     # Header
     st.markdown(
         "<h1 class='main-header'>📊 India GDP Projection 2026</h1>",
